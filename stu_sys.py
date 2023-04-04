@@ -170,6 +170,8 @@ def load_data_to_sys():
             print('【数据加载成功！】')
 
 
+# 自动加载数据
+load_data_to_sys()
 # 系统的调用
 while True:
     menu()
