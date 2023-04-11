@@ -17,6 +17,24 @@ def menu():
     print('【8】退出系统')
     print('-' * 40)
 
+# 定义age_input函数，判断用户输入数据的合理性
+def age_input():
+    while True:
+        user_input = input('请输入学生年龄：')
+        if user_input:
+            if user_input.isdigit():
+                age = int(user_input)
+                if 0 < age < 200:
+                    return age
+                else:
+                    print('输入的年龄范围不合理，请重新输入！')
+                    continue
+            else:
+                print('输入内容错误，请重新输入！')
+                continue
+        else:
+            print('输入内容为空，请重新输入！')
+
 
 # 定义is_digit函数，判断用户是否输入数字
 def is_digit(user_str):
@@ -32,16 +50,8 @@ def add_stu():
     while True:
         global students
         name = input('请输入学生姓名：')
-        # 判断是否输入的是数字
-        while True:
-            age_str = input('请输入学生年龄：')
-            # 嵌套使用函数is_digit来判断
-            age = is_digit(age_str)
-            if not age:
-                print('【输入错误，请按提示输入正确内容！】')
-                continue
-            else:
-                break
+        # 调用age_input检查用户的输入是否合理
+        age = age_input()
         gender = input('请输入学生性别：')
         # 将信息存入字典和列表
         student = {}
@@ -84,17 +94,10 @@ def alter_stu():
         for i in students:
             if i['name'] == alter_name:
                 # 提示输入修改信息
-                name = input('请输入新学生姓名：')
-                # 判断是否输入的是数字
-                while True:
-                    age_str = input('请输入学生年龄：')
-                    age = is_digit(age_str)
-                    if not age:
-                        print('【输入错误，请按提示输入正确内容！】')
-                        continue
-                    else:
-                        break
-                gender = input('请输入新学生性别：')
+                name = input('请输入学生姓名：')
+                # 调用age_input检查用户的输入是否合理
+                age = age_input()
+                gender = input('请输入学生性别：')
                 # 修改students列表内的字典
                 i['name'] = name
                 i['age'] = age
