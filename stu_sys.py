@@ -51,11 +51,7 @@ def num_input(func):
             # 判断输入是否是纯数字
             elif user_input.isdigit():
                 num = int(user_input)
-                # 判断数据范围合理性
-                if 0 < num < 9:
-                    return num
-                else:
-                    return
+                return num
             else:
                 return
 
