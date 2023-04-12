@@ -19,24 +19,45 @@ def menu():
 
 
 # 定义num_input函数，判断用户输入数据的合理性
-def num_input(user_input):
-    while True:
-        # 判断用户是否输入为空
-        if user_input:
-            # 判断输入是否是纯数字
-            if user_input.isdigit():
-                num = int(user_input)
-                # 判断年龄范围合理性
-                if 0 < num < 200:
-                    return num
+def num_input(func):
+    # 当输入为1时，判断输入的年龄数据是否合理
+    if func == 1:
+        while True:
+            user_input = input('请输入学生年龄：')
+            # 判断用户是否输入为空
+            if user_input:
+                # 判断输入是否是纯数字
+                if user_input.isdigit():
+                    num = int(user_input)
+                    # 判断年龄范围合理性
+                    if 0 < num < 200:
+                        return num
+                    else:
+                        print('输入的数值范围不合理，请重新输入！')
+                        continue
                 else:
-                    print('输入的数值范围不合理，请重新输入！')
+                    print('输入内容错误，请重新输入！')
                     continue
             else:
-                print('输入内容错误，请重新输入！')
-                continue
-        else:
-            print('输入内容为空，请重新输入！')
+                print('输入内容为空，请重新输入！')
+
+    # 当输入为2时，判断输入的功能编号是否合理
+    elif func == 2:
+        while True:
+            user_input = input('请按提示输入您要执行的功能编号：')
+            # 判断用户是否输入为空
+            if not user_input:
+                return
+            # 判断输入是否是纯数字
+            elif user_input.isdigit():
+                num = int(user_input)
+                # 判断数据范围合理性
+                if 0 < num < 9:
+                    return num
+                else:
+                    return
+            else:
+                return
 
 
 # 定义add_stu函数，实现添加学生信息
@@ -44,9 +65,8 @@ def add_stu():
     while True:
         global students
         name = input('请输入学生姓名：')
-        age_input = input('请输入学生年龄：')
         # 调用num_input检查用户的输入是否合理
-        age = num_input(age_input)
+        age = num_input(1)
         gender = input('请输入学生性别：')
         # 将信息存入字典和列表
         student = {}
@@ -90,9 +110,8 @@ def alter_stu():
             if i['name'] == alter_name:
                 # 提示输入修改信息
                 name = input('请输入学生姓名：')
-                age_input = input('请输入学生年龄：')
                 # 调用num_input检查用户的输入是否合理
-                age = num_input(age_input)
+                age = num_input(1)
                 gender = input('请输入学生性别：')
                 # 修改students列表内的字典
                 i['name'] = name
@@ -174,9 +193,8 @@ load_data_to_sys()
 # 系统的调用
 while True:
     menu()
-    user_input = input('请按提示输入数字：')
     # 判断输入内容是否是数字
-    user_num = num_input(user_input)
+    user_num = num_input(2)
 
     if user_num == 1:
         add_stu()
