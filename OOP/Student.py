@@ -11,6 +11,8 @@ class Student(object):
         stu_info = f'姓名：{self.__name} 年龄：{self.__age} 性别：{self.__gender}'
         return stu_info
 
+    def get_student(self):
+        return self.__name
 
 # 测试该模块
 if __name__ == '__main__':

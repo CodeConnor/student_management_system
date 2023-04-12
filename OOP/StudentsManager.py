@@ -1,6 +1,11 @@
+# 导入学生对象
+from Student import Student
 # 定义管理系统对象
 class StudentsManager(object):
     # 属性
+    def __init__(self):
+        # 定义空列表存储学生信息的对象
+        self.__students = []
 
     # 方法
     # 封装一个menu方法，打印系统菜单
@@ -19,8 +24,7 @@ class StudentsManager(object):
         print('-' * 40)
 
     # 封装num_input方法，判断用户输入数据的合理性
-    @staticmethod
-    def num_input(func):
+    def num_input(self, func):
         # 当输入为1时，判断输入的年龄数据是否合理
         if func == 1:
             while True:
@@ -52,13 +56,45 @@ class StudentsManager(object):
                 # 判断输入是否是纯数字
                 elif user_input.isdigit():
                     num = int(user_input)
-                    # 判断数据范围合理性
-                    if 0 < num < 9:
-                        return num
-                    else:
-                        return
+                    return num
                 else:
                     return
+
+    # 封装add_student方法，用于添加学生信息
+    def add_student(self):
+        # 提示用户输入
+        name = input('请输入学生姓名：')
+        # 过滤输入的年龄
+        age = self.num_input(1)
+        gender = input('请输入学生性别：')
+        # 将信息生成学生对象，并将对象存入列表中
+        self.__students.append(Student(name, age, gender))
+        print(f'学生{name}, 信息添加成功！')
+
+    # 封装del_student方法，用于删除学生信息
+    def del_student(self):
+        name = input('请输入需要删除的学生姓名：')
+        # 遍历学生列表
+        for i in self.__students:
+            if i.get_student() == name:
+                self.__students.remove(i)
+                print(f'学生{name}, 信息删除成功！')
+                break
+        else:
+            print('未查询到该学生信息！')
+
+    # 封装alter_student方法，修改学生信息
+    def alter_student(self):
+        name = input('请输入需要删除的学生姓名：')
+        pass
+
+    # 封装show_students方法，遍历展示所有学生信息
+    def show_students(self):
+        if not self.__students:
+            print('暂无学生信息！')
+        else:
+            for i in self.__students:
+                print(i)
 
     # 定义run方法，启动项目
     def run(self):
@@ -66,18 +102,18 @@ class StudentsManager(object):
             # 打印菜单
             StudentsManager.menu()
             # 提示用户输入，并判断输入数字的合理性
-            user_num = StudentsManager.num_input(2)
+            user_num = self.num_input(2)
             # 根据输入执行相应功能
             if user_num == 1:
-                pass
+                self.add_student()
             elif user_num == 2:
-                pass
+                self.del_student()
             elif user_num == 3:
-                pass
+                self.alter_student()
             elif user_num == 4:
                 pass
             elif user_num == 5:
-                pass
+                self.show_students()
             elif user_num == 6:
                 pass
             elif user_num == 7:
