@@ -5,7 +5,7 @@ class StudentsManager(object):
     # 属性
     def __init__(self):
         # 定义空列表存储学生信息的对象
-        self.__students = []
+        self.students = []
 
     # 方法
     # 封装一个menu方法，打印系统菜单
@@ -68,32 +68,43 @@ class StudentsManager(object):
         age = self.num_input(1)
         gender = input('请输入学生性别：')
         # 将信息生成学生对象，并将对象存入列表中
-        self.__students.append(Student(name, age, gender))
-        print(f'学生{name}, 信息添加成功！')
+        self.students.append(Student(name, age, gender))
+        print('信息添加成功！')
 
     # 封装del_student方法，用于删除学生信息
     def del_student(self):
         name = input('请输入需要删除的学生姓名：')
         # 遍历学生列表
-        for i in self.__students:
-            if i.get_student() == name:
-                self.__students.remove(i)
-                print(f'学生{name}, 信息删除成功！')
+        for i in self.students:
+            if i.name == name:
+                self.students.remove(i)
+                print('信息删除成功！')
                 break
         else:
             print('未查询到该学生信息！')
 
     # 封装alter_student方法，修改学生信息
     def alter_student(self):
-        name = input('请输入需要删除的学生姓名：')
-        pass
+        old_name = input('请输入需要修改的学生姓名：')
+        # 遍历学生列表
+        for i in self.students:
+            if i.name == old_name:
+                # 提示用户输入
+                i.name = input('请输入学生姓名：')
+                # 过滤输入的年龄
+                i.age = self.num_input(1)
+                i.gender = input('请输入学生性别：')
+                print('信息修改成功！')
+                break
+        else:
+            print('未查询到该学生信息！')
 
     # 封装show_students方法，遍历展示所有学生信息
     def show_students(self):
-        if not self.__students:
+        if not self.students:
             print('暂无学生信息！')
         else:
-            for i in self.__students:
+            for i in self.students:
                 print(i)
 
     # 定义run方法，启动项目
