@@ -1,5 +1,8 @@
 # 导入学生对象
 from Student import Student
+import os
+
+
 # 定义管理系统对象
 class StudentsManager(object):
     # 属性
@@ -140,10 +143,30 @@ class StudentsManager(object):
 
     # 封装load_data_to_sys方法，用于从文件加载数据到系统
     def load_data_to_sys(self):
-        pass
+        # 检测文件是否存在
+        if os.path.exists('students.txt'):
+            # 读取文件
+            f = open('students.txt', 'r', encoding='utf-8')
+            content = f.read()
+            load_data = eval(content)
+            # 判断文件中是否有数据
+            if len(load_data) == 0:
+                print('暂无数据需要加载！')
+            else:
+                # 清空列表原数据，防止数据重复
+                self.students = []
+                # 遍历数据，将数据实例化为对象存入列表
+                for i in load_data:
+                    self.students.append(Student(i['name'], i['age'], i['gender']))
+                f.close()
+                print('数据加载成功！')
+        else:
+            print('文件不存在，请先保存数据至文件！')
 
     # 定义run方法，启动项目
     def run(self):
+        # 启动前将数据加载至系统
+        self.load_data_to_sys()
         while True:
             # 打印菜单
             StudentsManager.menu()
@@ -163,7 +186,7 @@ class StudentsManager(object):
             elif user_num == 6:
                 self.save_data_to_file()
             elif user_num == 7:
-                pass
+                self.load_data_to_sys()
             # 退出系统
             elif user_num == 8:
                 print('已成功退出系统，欢迎下次使用！')
