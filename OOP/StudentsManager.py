@@ -48,17 +48,16 @@ class StudentsManager(object):
 
         # 当输入为2时，判断输入的功能编号是否合理
         elif func == 2:
-            while True:
-                user_input = input('请按提示输入您要执行的功能编号：')
-                # 判断用户是否输入为空
-                if not user_input:
-                    return
-                # 判断输入是否是纯数字
-                elif user_input.isdigit():
-                    num = int(user_input)
-                    return num
-                else:
-                    return
+            user_input = input('请按提示输入您要执行的功能编号：')
+            # 判断用户是否输入为空
+            if not user_input:
+                return
+            # 判断输入是否是纯数字
+            elif user_input.isdigit():
+                num = int(user_input)
+                return num
+            else:
+                return
 
     # 封装add_student方法，用于添加学生信息
     def add_student(self):
@@ -99,6 +98,19 @@ class StudentsManager(object):
         else:
             print('未查询到该学生信息！')
 
+    # 封装find_student方法，用于查找单个学生信息
+    def find_student(self):
+        if not self.students:
+            print('暂无学生信息！')
+        else:
+            find_name = input('请输入需要查找的学生姓名：')
+            for i in self.students:
+                if i.name == find_name:
+                    print(i)
+                    return
+            else:
+                print('很抱歉，查询不到该学生！')
+
     # 封装show_students方法，遍历展示所有学生信息
     def show_students(self):
         if not self.students:
@@ -106,6 +118,29 @@ class StudentsManager(object):
         else:
             for i in self.students:
                 print(i)
+
+    # 封装save_data_to_file方法，用于保存数据至students.txt
+    def save_data_to_file(self):
+        # 创建空字典、空列表
+        save_student = {}
+        save_data = []
+        # 遍历学生对象列表，获取学生信息
+        for i in self.students:
+            # 使用字典和列表存储学生信息
+            save_student['name'] = i.name
+            save_student['age'] = i.age
+            save_student['gender'] = i.gender
+            save_data.append(save_student)
+        # 打开文件存储信息
+        f = open('students.txt', 'w', encoding='utf-8')
+        f.write(str(save_data))
+        f.close()
+        print('数据保存成功！')
+        pass
+
+    # 封装load_data_to_sys方法，用于从文件加载数据到系统
+    def load_data_to_sys(self):
+        pass
 
     # 定义run方法，启动项目
     def run(self):
@@ -122,11 +157,11 @@ class StudentsManager(object):
             elif user_num == 3:
                 self.alter_student()
             elif user_num == 4:
-                pass
+                self.find_student()
             elif user_num == 5:
                 self.show_students()
             elif user_num == 6:
-                pass
+                self.save_data_to_file()
             elif user_num == 7:
                 pass
             # 退出系统

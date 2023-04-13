@@ -16,4 +16,3 @@ class Student(object):
 if __name__ == '__main__':
     stu = Student('Tom', 20, 'male')
 
-    print(stu('T', 20, 'male'))
