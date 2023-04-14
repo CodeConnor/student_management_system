@@ -128,12 +128,8 @@ class StudentsManager(object):
         save_data = []
         # 遍历学生对象列表，获取学生信息
         for i in self.students:
-            # 使用字典和列表存储学生信息
-            save_student = {}
-            save_student['name'] = i.name
-            save_student['age'] = i.age
-            save_student['gender'] = i.gender
-            save_data.append(save_student)
+            # 将对象i转换成字典，再使用列表存储学生信息
+            save_data.append(i.__dict__)
 
         # 打开文件存储信息
         f = open('students.txt', 'w', encoding='utf-8')
@@ -156,7 +152,7 @@ class StudentsManager(object):
             else:
                 # 清空列表原数据，防止数据重复
                 self.students = []
-                # 遍历数据，将数据实例化为对象存入列表
+                # 遍历数据，将数据实例化为对象并存入列表
                 for i in load_data:
                     self.students.append(Student(i['name'], i['age'], i['gender']))
                 f.close()
