@@ -130,7 +130,7 @@ class StudentsManager(object):
         for i in self.students:
             # 将对象i转换成字典，再使用列表存储学生信息
             save_data.append(i.__dict__)
-
+        # 以上内容可简写为推导式：save_data = [i.__dict__ for i in self.students]
         # 打开文件存储信息
         f = open('students.txt', 'w', encoding='utf-8')
         f.write(str(save_data))
@@ -155,6 +155,7 @@ class StudentsManager(object):
                 # 遍历数据，将数据实例化为对象并存入列表
                 for i in load_data:
                     self.students.append(Student(i['name'], i['age'], i['gender']))
+                # 以上代码可简化为：self.students = [Student(i['name'], i['age'], i['gender']) for i in load_data]
                 f.close()
                 print('数据加载成功！')
         else:
