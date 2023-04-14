@@ -124,16 +124,17 @@ class StudentsManager(object):
 
     # 封装save_data_to_file方法，用于保存数据至students.txt
     def save_data_to_file(self):
-        # 创建空字典、空列表
-        save_student = {}
+        # 创建空列表
         save_data = []
         # 遍历学生对象列表，获取学生信息
         for i in self.students:
             # 使用字典和列表存储学生信息
+            save_student = {}
             save_student['name'] = i.name
             save_student['age'] = i.age
             save_student['gender'] = i.gender
             save_data.append(save_student)
+
         # 打开文件存储信息
         f = open('students.txt', 'w', encoding='utf-8')
         f.write(str(save_data))
